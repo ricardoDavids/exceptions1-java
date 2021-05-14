@@ -49,11 +49,38 @@ public class Reservation {
 	
 	//Agora atualizar as datas, isto é, vai receber um valor Date para o checkIn e outro valor date para o checkOut
 	
-	public void updateDates(Date checkIn, Date checkOut) {
+	public String updateDates(Date checkIn, Date checkOut) {
 		
-		this.checkIn = checkIn;
-		this.checkOut= checkOut;
+		//Atualização das datas:
+			     
+			     Date now = new Date();
+			     if(checkIn.before(now) || checkOut.before(now)) {
+			    	 return "Reservation dates for update must be future dates";
+			     }
+			     if(!checkOut.after(checkIn) ) {
+						return "Check-out date must be after check-in date";
+				
+			}
+			     this.checkIn= checkIn;
+			     this.checkOut= checkOut;
+			     return null;
+			     
+			     /*Notas Importantes:
+			      * 
+			       1- Este metodo Date now diz nos resumidamente que no 1º If se a datas que quero atualizar
+			        do checkIn ou do checkOut for antes das datas anteriores não podemos atualizar
+			        
+			       2- No 2º If estamos a dizer se a data do checkOut não for depois da data do checkIn
+			          irá dar um erro como mensagem.
+			          
+			        
+			       3 - Por fim como o metodo retorna uma string, se acontecer tudo certo e eu atualizar as datas
+			             vou ter que retornar uma string, só que agora para indicar que não teve nenhum erro,
+			             irei mandar retornar null;
+			             
+			        4- Se retornar alguma string que não tenha dado null, é porque deu algum erro e ai vou ter que tratar;  */
 	}
+		
 	@Override 
 	public String toString() {
 		
